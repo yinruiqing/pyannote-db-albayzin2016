@@ -97,7 +97,7 @@ class TVRadio(SpeakerDiarizationProtocol):
 
         rttms = {}
         for file in listdir(op.join(data_dir, 'rttm',subset)):
-            if subset == 'trn'
+            if subset == 'trn':
                 rttm = read_rttm_file_trn(op.join(data_dir, 'rttm', subset, file))
             else: 
                 rttm = read_rttm_file_other(op.join(data_dir, 'rttm', subset, file))
