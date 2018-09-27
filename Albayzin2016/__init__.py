@@ -33,9 +33,12 @@ del get_versions
 
 
 import os.path as op
+from pyannote.core import Segment, Timeline, Annotation
 from pyannote.database import Database
 from pyannote.database.protocol import SpeakerDiarizationProtocol
-from pyannote.parser import MDTMParser
+from pandas import read_table
+from os import listdir
+import os
 
 # this protocol defines a speaker diarization protocol: as such, a few methods
 # needs to be defined: trn_iter, dev_iter, and tst_iter.
