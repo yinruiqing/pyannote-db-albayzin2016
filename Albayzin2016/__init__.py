@@ -45,11 +45,26 @@ import os
 
 
 
-def read_rttm_file(file):
+def read_rttm_file_trn(file):
     # load whole file
     df = read_table(file,
     delim_whitespace=True,
     header=None, names=['type', 'uri', 'channel', 'start', 'duration', 'modality', 'confidence', 'label', 'gender'],
+    keep_default_na=False, na_values=[])
+
+    # remove comment lines
+    # (i.e. lines for which all fields are either None or NaN)
+    #keep = [not all(pandas.isnull(item) for item in row[3:4])
+    #        for row in df.itertuples()]
+    #df = df[keep]
+    df = df.loc[~df['type'].str.contains('-INFO')]
+    return df
+
+def read_rttm_file_other(file):
+    # load whole file
+    df = read_table(file,
+    delim_whitespace=True,
+    header=None, names=['type', 'uri', 'channel', 'start', 'duration', 'modality', 'confidence', 'label', 'gender','non'],
     keep_default_na=False, na_values=[])
 
     # remove comment lines
@@ -82,7 +97,10 @@ class TVRadio(SpeakerDiarizationProtocol):
 
         rttms = {}
         for file in listdir(op.join(data_dir, 'rttm',subset)):
-            rttm = read_rttm_file(op.join(data_dir, 'rttm', subset, file))
+            if subset == 'trn'
+                rttm = read_rttm_file_trn(op.join(data_dir, 'rttm', subset, file))
+            else: 
+                rttm = read_rttm_file_other(op.join(data_dir, 'rttm', subset, file))
             uri = rttm['uri'].iloc[0]
             annotation = Annotation()
             for index, row in rttm.iterrows():
