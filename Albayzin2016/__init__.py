@@ -114,7 +114,7 @@ class TVRadio(SpeakerDiarizationProtocol):
         times = {}
         for row in rows:
             kv = row.split(' ')
-            times[kv[0]] = Segment(0, float(kv[1]))
+            times[kv[0]] = Timeline([Segment(0, float(kv[1]))])
 
         for uri in uris:
             annotated = times[uri]
