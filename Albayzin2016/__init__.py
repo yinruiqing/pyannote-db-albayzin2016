@@ -104,7 +104,7 @@ class TVRadio(SpeakerDiarizationProtocol):
             uri = rttm['uri'].iloc[0]
             annotation = Annotation()
             for index, row in rttm.iterrows():
-                annotation[Segment(float(row['start']), float(row['start']) + float(row['duration']))] = row['label']
+                annotation[Segment(float(row['start']), float(row['start']) + float(row['duration']))] = str(row['label'])
             rttms[uri] = annotation
 
         #By default it take all the file time
