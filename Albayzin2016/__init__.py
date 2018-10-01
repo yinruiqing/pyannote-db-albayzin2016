@@ -102,7 +102,7 @@ class TVRadio(SpeakerDiarizationProtocol):
             else: 
                 rttm = read_rttm_file_other(op.join(data_dir, 'rttm', subset, file))
             uri = rttm['uri'].iloc[0]
-            annotation = Annotation()
+            annotation = Annotation(uri=uri)
             for index, row in rttm.iterrows():
                 annotation[Segment(float(row['start']), float(row['start']) + float(row['duration']))] = str(row['label'])
             rttms[uri] = annotation
